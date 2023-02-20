@@ -30,6 +30,8 @@ title str
   id str 
   shelf str 
 */
+
+
 const Shelveoptions = [
     {
       label: "None",
@@ -40,20 +42,32 @@ const Shelveoptions = [
       value: "Read",
     },
     {
-      label: "CurrentlyReading",
-      value: "CurrentlyReading",
+      label: "currentlyReading",
+      value: "currentlyReading",
     },
     {
-      label: "WantToRead",
-      value: "WantToRead",
+      label: "wantToRead",
+      value: "wantToRead",
     },
   ];
 
-const Book = ({book ,MoveToShelve}) => {
-    
+const Book = ({hanldeDetailClick,book,books,MoveToShelve}) => {
+
+  
+  const isUserbook = books.filter(userbook => userbook.id === book.id ) ;
+  const shelf = isUserbook.length > 0 ? 
+                isUserbook.shelf : "None"
+  
+
+  const  handleSHeleveChange = ((book,event) => {
+    event.preventDefault();
+    book["shelf"] = event.target.value
+    MoveToShelve(book);
+    });
+
 return(
-    <li Key={book.title}>
-      <div className="book">
+    <li key={book.id}>
+       <div   className="book">
         <div className="book-top">
           <div
             className="book-cover"
@@ -64,23 +78,25 @@ return(
               'url("'+book.imageLinks.thumbnail+'")'
             }}
           ></div>
-          <div className="book-shelf-changer">
-            <select value={book.shelve} onSelect={MoveToShelve}>
-               <option  value="none" disabled>
+          <div  className="book-shelf-changer">
+            <select value={shelf} onChange={(event) => handleSHeleveChange(book,event)}>
+               <option  key="none" value="none" disabled>
                                        Move to...
                                      </option>
                {Shelveoptions.map(shelve =>{
-                 return (<option  value={shelve.value}>{shelve.label}</option>)}
+                 return (<option key={shelve.label} value={shelve.value}>{shelve.label}</option>)}
                    )}
             </select>
           </div>
         </div>
-        <div className="book-title">{book["title"]}</div>
-        <div className="book-authors">{book.authors.map(author => {
-            return( {author}+ ",")
-        })
-        } </div>
+        <div onClick={(event) => hanldeDetailClick("show",book.title,book.description)} className="book-title" >{book.title}</div>
+        <div className="book-authors">
+            By : 
+            {book.authors } 
+        </div>
+  
       </div>
+      
     </li>)
     }
-export default Book;
+export default Book 

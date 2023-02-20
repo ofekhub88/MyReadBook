@@ -6,47 +6,47 @@ import * as BooksAPI from "./BooksAPI";
 import SearchBook from "./SearchBook";
 
 
-
-
-
 function App() {
   const [books, setBooks] = useState([]);
-  const [userbooks,setUserbooks] = useState({"Lords of Finance}": "Read"});
-  
+ 
   useEffect(() => {
-    const getBooks = async () => {
+      const getBooks = async () => {
       const res = await BooksAPI.getAll();
+      console.log(res)
       setBooks(res);
     };
-
-    getBooks();
+     getBooks();
   }, []);
 
-const MoveToShelve=((book,moveto) => {
-  const UpdateBook = {}
-  UpdateBook[book] = moveto
-  setUserbooks(...userbooks, UpdateBook)
-})
+const MoveToShelve=((book) => {
+   const total = BooksAPI.update(book,book.shelf).then(res => {console.log(res);});
+   let new_books = books.filter(fbook => fbook.id !== book.id ); 
+   new_books.push(book);
+   setBooks(new_books);
+    });
+
+
 
   return (
     <div>
+     
     <Routes>
      <Route exact path="/" 
             element={
             <BookShelves
             books={books}
-            userbooks = {userbooks}
-            MoveToShelves = {MoveToShelve}
+            MoveToShelve = {MoveToShelve}
              />}
      />
      <Route path="/search" 
             element={
             <SearchBook
             books={books}
-            userbooks = {userbooks}
-            MoveToShelves = {MoveToShelve}
+            MoveToShelve = {MoveToShelve}
              />}
      />
+
+     
     </Routes>
  </div>
 
