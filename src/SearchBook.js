@@ -4,6 +4,8 @@ import { Link} from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 import BookDetails from "./BookDetails";
+import PropTypes from "prop-types";
+
 const SearchBook = ({books, MoveToShelve}) => {
 
     const [showDetails, setShowDetails] = useState({"title": "None"}); 
@@ -80,9 +82,9 @@ const SearchBook = ({books, MoveToShelve}) => {
     )
 }
 
+SearchBook.propTypes = {
+  books: PropTypes.array.isRequired,
+  MoveToShelve: PropTypes.func.isRequired,
+};
+
 export default SearchBook ;
-/*
-return(<Book 
-                        book = {book}
-                        MoveToShelve = {MoveToShelve} />)
-*/

@@ -73,7 +73,6 @@ const BookPerShelves =(shelf) =>{
 BookShelves.propTypes = {
   books: PropTypes.array.isRequired,
   MoveToShelve: PropTypes.func.isRequired,
-  userbooks: PropTypes.object,
 };
 
 export default BookShelves;

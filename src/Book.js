@@ -30,7 +30,7 @@ title str
   id str 
   shelf str 
 */
-
+import PropTypes from "prop-types";
 
 const Shelveoptions = [
     {
@@ -99,4 +99,12 @@ return(
       
     </li>)
     }
+
+Book.propTypes = {
+      books: PropTypes.array.isRequired,
+      book: PropTypes.object.isRequired,
+      MoveToShelve: PropTypes.func.isRequired,
+      hanldeDetailClick: PropTypes.func.isRequired,
+    };
+
 export default Book 
