@@ -13,15 +13,15 @@ const SearchBook = ({books, MoveToShelve}) => {
     const [searchResults,setSearchResults] = useState([]);
     const [errorResults,setErrorResults] = useState("")
     const UpdateQuery = (query => {
-      setQuery(query.trim());
+      setQuery(query);
       } );
 
     useEffect(() => {
         const getBooks =()  => {
-           if (query === "") {
+           if (query.trim() === "") {
             setSearchResults([])
           } else {
-               BooksAPI.search((query)).then(res => {
+               BooksAPI.search((query.trim())).then(res => {
                 if (res.error) {
                   setErrorResults("No Results found !" )
                   setSearchResults([])

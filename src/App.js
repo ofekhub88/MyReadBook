@@ -10,9 +10,10 @@ function App() {
   const [books, setBooks] = useState([]);
  
   useEffect(() => {
+      console.log("before");
       const getBooks = async () => {
       const res = await BooksAPI.getAll();
-      console.log(res)
+      console.log(res);
       setBooks(res);
     };
      getBooks();
