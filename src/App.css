@@ -149,6 +149,9 @@ body,
 }
 .book-title {
   margin-top: 10px;
+  cursor: text;
+  color: rgb(17, 17, 123);
+  font: bold
 }
 .book-authors {
   color: #999;

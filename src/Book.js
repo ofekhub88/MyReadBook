@@ -83,7 +83,7 @@ return(
           <select value={selectedshelf} onChange={(event) => handleSHeleveChange(book,event)}>
                <option  key="none" value="none" disabled> Move to... </option>
                {Shelveoptions.map(shelve =>{
-                 return (<option key={shelve.label} value={shelve.value}>{shelve.value === selectedshelf? ("✔️ " ) :( <p>&nbsp;&nbsp;&nbsp;&nbsp;</p> )}{shelve.label} </option>)}
+                 return (<option key={shelve.label} value={shelve.value}>{shelve.value === selectedshelf? ("✔️ " ) :( <>&nbsp;&nbsp;&nbsp;&nbsp;</> )}{shelve.label} </option>)}
                    )}
             </select>
           </div>

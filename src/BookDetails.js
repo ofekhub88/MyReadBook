@@ -5,7 +5,7 @@ const BookDetails = ({ hanldeDetailClick, BookDetails }) => {
           <div className="modal display-block">
             <section className="modal-main">
             <h3>  {BookDetails.title} </h3>
-                  {BookDetails.details}
+                  { BookDetails.details? (BookDetails.details) :"No Details found !"}
                <button className="button1" onClick={(event) =>  hanldeDetailClick("hide")}> Close </button>
             </section>
           </div>
@@ -13,8 +13,8 @@ const BookDetails = ({ hanldeDetailClick, BookDetails }) => {
       }; 
 
 BookDetails.propTypes = {
-        books: PropTypes.array.isRequired,
-        MoveToShelve: PropTypes.func.isRequired,
+        BookDetails: PropTypes.object.isRequired,
+        hanldeDetailClick: PropTypes.func.isRequired,
       };
 
       
