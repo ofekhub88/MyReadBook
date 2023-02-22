@@ -26,6 +26,7 @@ const SearchBook = ({books, MoveToShelve}) => {
                   setErrorResults("No Results found !" )
                   setSearchResults([])
                 } else {
+                  console.log(res)
                 setSearchResults(res);
                 setErrorResults("")
                 }
@@ -60,7 +61,10 @@ const SearchBook = ({books, MoveToShelve}) => {
           </div>
           
           <div className="search-books-results">
-             { errorResults.length === 0 ? (
+          
+             { errorResults.length === 0  && searchResults.length >0 ? (
+              <div>
+                <p>(Click on title to get the details) </p>  
              <ol className="books-grid">
               {searchResults.map((book) => {
                 return(<Book key={book.id}
@@ -70,7 +74,7 @@ const SearchBook = ({books, MoveToShelve}) => {
                   MoveToShelve = {MoveToShelve} />)
               })
               }
-             </ol>) : (<h2 className="h-text-color" > {errorResults} </h2>)
+             </ol> </div>) : (<h2 className="h-text-color" > {errorResults} </h2>)
                     }
              </div>
              {showDetails.title !== "None" ? 

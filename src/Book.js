@@ -33,30 +33,31 @@ title str
 import PropTypes from "prop-types";
 
 const Shelveoptions = [
-    {
-      label: "None",
-      value: "None",
-    },
-    {
-      label: "Read",
-      value: "Read",
-    },
-    {
-      label: "currentlyReading",
-      value: "currentlyReading",
-    },
-    {
-      label: "wantToRead",
-      value: "wantToRead",
-    },
-  ];
+  {
+    label: "None",
+    value: "None",
+  },
+  {
+    label: "Read",
+    value: "Read",
+  },
+  {
+    label: "currentlyReading",
+    value: "currentlyReading",
+  },
+  {
+    label: "wantToRead",
+    value: "wantToRead",
+  },
+];
 
 const Book = ({hanldeDetailClick,book,books,MoveToShelve}) => {
 
   
   const isUserbook = books.filter(userbook => userbook.id === book.id ) ;
-  const shelf = isUserbook.length > 0 ? 
-                isUserbook.shelf : "None"
+ 
+  const selectedshelf = isUserbook.length > 0 ? (isUserbook[0].shelf) : ("None")
+  
   
 
   const  handleSHeleveChange = ((book,event) => {
@@ -75,28 +76,23 @@ return(
               width: 128,
               height: 193,
               backgroundImage:
-              'url("'+book.imageLinks.thumbnail+'")'
+              (book["imageLinks"] && book["imageLinks"]["smallThumbnail"])? ('url("'+book["imageLinks"]["smallThumbnail"]+'")'): ("")
             }}
           ></div>
-          <div  className="book-shelf-changer">
-            <select value={shelf} onChange={(event) => handleSHeleveChange(book,event)}>
-               <option  key="none" value="none" disabled>
-                                       Move to...
-                                     </option>
+          <div className="book-shelf-changer">
+          <select value={selectedshelf} onChange={(event) => handleSHeleveChange(book,event)}>
+               <option  key="none" value="none" disabled> Move to... </option>
                {Shelveoptions.map(shelve =>{
-                 return (<option key={shelve.label} value={shelve.value}>{shelve.label}</option>)}
+                 return (<option key={shelve.label} value={shelve.value}>{shelve.value === selectedshelf? ("✔️ " ) :( <p>&nbsp;&nbsp;&nbsp;&nbsp;</p> )}{shelve.label} </option>)}
                    )}
             </select>
           </div>
         </div>
         <div onClick={(event) => hanldeDetailClick("show",book.title,book.description)} className="book-title" >{book.title}</div>
         <div className="book-authors">
-            By : 
-            {book.authors } 
+            By : { (book["authors"]) ? (book.authors) : ("")} 
         </div>
-  
       </div>
-      
     </li>)
     }
 
